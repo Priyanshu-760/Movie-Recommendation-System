@@ -1,0 +1,326 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+#movie-input {
+  width: 80%;
+  max-width: 500px;
+  padding: 1rem;
+  margin: 1rem auto;
+  border-radius: 50px;
+  border: 2px solid #4ecdc4;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1.1rem;
+  outline: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+#movie-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+#movie-input:focus {
+  border-color: #ff6b6b;
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+#movie-input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+#recommend-btn {
+  background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  margin: 2rem 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+#recommend-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+#recommend-btn:active {
+  transform: translateY(1px);
+}
+
+#recommend-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 20px;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(30deg);
+  transition: all 0.8s;
+}
+
+#recommend-btn:hover::after {
+  left: 120%;
+}
+
+#recommendation-container {
+  margin-top: 2rem;
+}
+
+#recommendation-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.movie-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  animation: fadeIn 0.5s ease-out;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.movie-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.movie-poster {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.movie-poster-placeholder {
+  width: 100%;
+  height: 400px;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.movie-poster-placeholder span {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.2rem;
+}
+
+.movie-info {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-title {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-align: left;
+}
+
+.movie-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.rating, .duration, .genre {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.3rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.movie-plot {
+  text-align: left;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  flex-grow: 1;
+}
+
+.error-message {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  animation: fadeIn 0.5s ease-out;
+  position: relative;
+  overflow: hidden;
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+.error-message::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Loading animation */
+.loading {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 2rem auto;
+}
+
+.loading div {
+  position: absolute;
+  border: 4px solid #4ecdc4;
+  opacity: 1;
+  border-radius: 50%;
+  animation: loading 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.loading div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+
+@keyframes loading {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
+  }
+}
+
+.loading-container {
+  text-align: center;
+  display: none;
+}
+
+.loading-text {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #4ecdc4;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Futuristic card animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  #recommendation-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .movie-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+}
